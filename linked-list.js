@@ -104,31 +104,75 @@ class LinkedList {
   /** getAt(idx): get val at idx. */
 
   getAt(idx) {
+    if (this.length === 0 || idx >= this.length || idx < 0) {
+      throw new Error("List is empty.");
+    }
+    let currInd = 0;
+    let currNode = this.head;
 
+    while (currInd !== idx){
+      currNode = currNode.next;
+      currInd++;
+    }
+    return currNode.val
   }
 
   /** setAt(idx, val): set val at idx to val */
 
   setAt(idx, val) {
+    if (this.length === 0 || idx >= this.length || idx < 0) {
+      throw new Error("List is empty.");
+    }
 
+    let currInd = 0;
+    let currNode = this.head;
+
+    while (currInd !== idx){
+      currNode = currNode.next;
+      currInd++;
+    }
+    currNode.val = val;
   }
 
-  /** insertAt(idx, val): add node w/val before idx. */
+  /** insertAt(idx, val): add node w/val AT idx. */
 
   insertAt(idx, val) {
+    if ( idx >= this.length || idx < 0) {
+      throw new Error("List is empty.");
+    }
 
+    let newNode = new Node(val);
+    let currInd = 0;
+    let currNode = this.head;
+    let nextNode = this.head.next
+
+    while (currInd <= idx){
+      if (idx === currInd){
+        currNode.next = newNode;
+        newNode.next = nextNode;
+        break;
+      }
+      currNode = currNode.next;
+      nextNode = currNode.next;
+      currInd++;
+    }
   }
 
   /** removeAt(idx): return & remove item at idx, */
 
   removeAt(idx) {
+    if (this.length === 0) {
+      throw new Error("List is empty.");
+    }
 
   }
 
   /** average(): return an average of all values in the list */
 
   average() {
-
+    if (this.length === 0) {
+      throw new Error("List is empty.");
+    }
   }
 }
 
