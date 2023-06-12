@@ -24,10 +24,10 @@ class LinkedList {
 
   push(val) {
     let newVal = new Node(val);
-    if (head === null) {
+    if (this.head === null) {
       this.head = newVal;
       this.tail = newVal;
-    } else if (head) {
+    } else if (this.head) {
       this.tail.next = newVal;
       this.tail = newVal;
     }
@@ -40,11 +40,11 @@ class LinkedList {
     //account for if list is empty currently,
     let newVal = new Node(val);
 
-    if (head === null) {
+    if (this.head === null) {
       this.head = newVal;
       this.tail = newVal;
 
-    } else if (head) {
+    } else if (this.head) {
       newVal.next = this.head;
       this.head = newVal;
     }
@@ -54,29 +54,32 @@ class LinkedList {
   /** pop(): return & remove last item. */
 
   pop() {
-    let tailToRemove;
 
     if (this.length === 0) {
       throw new Error("List is empty.");
     }
 
+    let lastNode = this.tail;
+
     if (this.head === this.tail) {
-      tailToRemove = this.tail;
+      lastNode = this.tail;
       this.tail === null;
       this.head === null;
     } else {
-      for (let node of this) {
-        if (node.next === this.tail) {
-          tailToRemove = this.tail;
-          node.next = null;
-          this.tail = node;
+      let currNode = this.head;
+      let currIdx = 0;
+
+      while(currIdx < this.length){
+        if(currNode.next === this.tail){
+          currNode.next = null;
+          this.tail = currNode;
         }
+
+        currIdx++;
       }
     }
-
     this.length--;
-
-    return tailToRemove.val;
+    return lastNode.val
   }
 
   /** shift(): return & remove first item. */
