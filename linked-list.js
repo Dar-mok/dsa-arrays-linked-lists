@@ -121,7 +121,7 @@ class LinkedList {
 
   setAt(idx, val) {
     if (this.length === 0 || idx >= this.length || idx < 0) {
-      throw new Error("List is empty.");
+      throw new Error("Invalid.");
     }
 
     let currInd = 0;
@@ -138,7 +138,7 @@ class LinkedList {
 
   insertAt(idx, val) {
     if ( idx >= this.length || idx < 0) {
-      throw new Error("List is empty.");
+      throw new Error("Invalid.");
     }
 
     let newNode = new Node(val);
@@ -161,11 +161,29 @@ class LinkedList {
   /** removeAt(idx): return & remove item at idx, */
 
   removeAt(idx) {
-    if (this.length === 0) {
-      throw new Error("List is empty.");
+    if (idx >= this.length || idx < 0) {
+      throw new Error("Invalid.");
     }
 
+    let currInd = 0;
+    let currNode = this.head;
+    let nodeToRemove;
+    let previousNode;
+
+    while (currInd <= idx){
+      if (idx-1 === currInd) {
+        previousNode = currNode;
+      }
+      if (idx === currInd){
+        nodeToRemove = currNode;
+        previousNode.next = currNode.next;
+        currNode = null;
+        return nodeToRemove;
+      }
+      currNode = currNode.next;
+      currInd++;
   }
+}
 
   /** average(): return an average of all values in the list */
 
@@ -173,6 +191,19 @@ class LinkedList {
     if (this.length === 0) {
       throw new Error("List is empty.");
     }
+
+    let sum = 0;
+    let currIdx = 0;
+    let currNode = this.head;
+
+    while (currIdx < this.length){
+      sum += currNode.val;
+      currNode = currNode.next;
+
+      currIdx++;
+    }
+
+    return sum/this.length;
   }
 }
 
